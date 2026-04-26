@@ -1,0 +1,547 @@
+{
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "next": "q1"
+    },
+    {
+      "id": "q1",
+      "type": "question",
+      "text": "When a challenge appears, which statement feels most true?",
+      "options": [
+        {
+          "id": "q1_opt1",
+          "label": "I can shape the outcome through my choices.",
+          "signals": { "locus_internal": 1 },
+          "next": "q2"
+        },
+        {
+          "id": "q1_opt2",
+          "label": "The result usually depends on outside forces.",
+          "signals": { "locus_external": 1 },
+          "next": "q2"
+        },
+        {
+          "id": "q1_opt3",
+          "label": "Sometimes my actions matter, sometimes they don’t.",
+          "signals": { "locus_neutral": 1 },
+          "next": "q2"
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "type": "question",
+      "text": "When a project stalls, where does your first attention go?",
+      "options": [
+        {
+          "id": "q2_opt1",
+          "label": "What I can do differently next.",
+          "signals": { "locus_internal": 1 },
+          "next": "decision_locus"
+        },
+        {
+          "id": "q2_opt2",
+          "label": "Who or what blocked the progress.",
+          "signals": { "locus_external": 1 },
+          "next": "decision_locus"
+        },
+        {
+          "id": "q2_opt3",
+          "label": "Both the context and my choices matter.",
+          "signals": { "locus_neutral": 1 },
+          "next": "decision_locus"
+        }
+      ]
+    },
+    {
+      "id": "decision_locus",
+      "type": "decision",
+      "routes": [
+        {
+          "condition": {
+            "signalCondition": {
+              "signal": "locus_internal",
+              "operator": ">=",
+              "value": 2
+            }
+          },
+          "next": "bridge_orientation_empowered"
+        },
+        {
+          "condition": {
+            "signalCondition": {
+              "signal": "locus_external",
+              "operator": ">=",
+              "value": 2
+            }
+          },
+          "next": "bridge_orientation_context"
+        },
+        {
+          "next": "bridge_orientation_blend"
+        }
+      ]
+    },
+    {
+      "id": "bridge_orientation_empowered",
+      "type": "bridge",
+      "text": "You’re noticing how agency shows up. Let’s now look at how you orient that perspective toward others and value.",
+      "next": "q3"
+    },
+    {
+      "id": "bridge_orientation_context",
+      "type": "bridge",
+      "text": "You’re noticing external pressure. Next, let’s explore how that stance interacts with contribution and entitlement.",
+      "next": "q3"
+    },
+    {
+      "id": "bridge_orientation_blend",
+      "type": "bridge",
+      "text": "You’re holding both internal and external cues. Now we’ll examine the style of your engagement.",
+      "next": "q3"
+    },
+    {
+      "id": "q3",
+      "type": "question",
+      "text": "In a team conversation, what do you typically signal first?",
+      "options": [
+        {
+          "id": "q3_opt1",
+          "label": "I offer what I can contribute before I ask for what I need.",
+          "signals": { "orientation_contribution": 1 },
+          "next": "q4"
+        },
+        {
+          "id": "q3_opt2",
+          "label": "I expect my experience or title to be acknowledged.",
+          "signals": { "orientation_entitlement": 1 },
+          "next": "q4"
+        },
+        {
+          "id": "q3_opt3",
+          "label": "I wait to see what others do first.",
+          "signals": { "orientation_neutral": 1 },
+          "next": "q4"
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "type": "question",
+      "text": "When a peer succeeds, what is your inner response?",
+      "options": [
+        {
+          "id": "q4_opt1",
+          "label": "I notice what I can learn and where I can collaborate.",
+          "signals": { "orientation_contribution": 1, "radius_altro": 1 },
+          "next": "q5"
+        },
+        {
+          "id": "q4_opt2",
+          "label": "I compare their results to my own worth.",
+          "signals": { "orientation_entitlement": 1, "radius_self": 1 },
+          "next": "q5"
+        },
+        {
+          "id": "q4_opt3",
+          "label": "I feel proud for both of us in different ways.",
+          "signals": { "orientation_contribution": 1, "radius_balanced": 1 },
+          "next": "q5"
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "type": "question",
+      "text": "If you finish your tasks early, what do you choose to do next?",
+      "options": [
+        {
+          "id": "q5_opt1",
+          "label": "Look for a way to help a colleague move forward.",
+          "signals": { "orientation_contribution": 1, "radius_altro": 1 },
+          "next": "decision_orientation"
+        },
+        {
+          "id": "q5_opt2",
+          "label": "Take credit for being efficient and protect my time.",
+          "signals": { "orientation_entitlement": 1, "radius_self": 1 },
+          "next": "decision_orientation"
+        },
+        {
+          "id": "q5_opt3",
+          "label": "Use the time to prepare my next step and also check on the team.",
+          "signals": { "orientation_contribution": 1, "radius_balanced": 1 },
+          "next": "decision_orientation"
+        }
+      ]
+    },
+    {
+      "id": "decision_orientation",
+      "type": "decision",
+      "routes": [
+        {
+          "condition": {
+            "signalCondition": {
+              "signal": "orientation_contribution",
+              "operator": ">=",
+              "value": 2
+            }
+          },
+          "next": "bridge_radius_expansive"
+        },
+        {
+          "condition": {
+            "signalCondition": {
+              "signal": "orientation_entitlement",
+              "operator": ">=",
+              "value": 2
+            }
+          },
+          "next": "bridge_radius_defensive"
+        },
+        {
+          "next": "bridge_radius_blend"
+        }
+      ]
+    },
+    {
+      "id": "bridge_radius_expansive",
+      "type": "bridge",
+      "text": "You’re oriented toward contribution. Next, let’s see whether your concern widens beyond your own role.",
+      "next": "q6"
+    },
+    {
+      "id": "bridge_radius_defensive",
+      "type": "bridge",
+      "text": "You’re noticing entitlement patterns. Now let’s explore whether your concern stays personal or widens to others.",
+      "next": "q6"
+    },
+    {
+      "id": "bridge_radius_blend",
+      "type": "bridge",
+      "text": "You’re balancing contribution and entitlement. Let’s examine how your concern spans self and others.",
+      "next": "q6"
+    },
+    {
+      "id": "q6",
+      "type": "question",
+      "text": "When a colleague asks for help, how do you decide whether to step in?",
+      "options": [
+        {
+          "id": "q6_opt1",
+          "label": "I jump in if it helps the team move forward.",
+          "signals": { "radius_altro": 1 },
+          "next": "q7"
+        },
+        {
+          "id": "q6_opt2",
+          "label": "I step in if it doesn’t derail my own workload.",
+          "signals": { "radius_balanced": 1 },
+          "next": "q7"
+        },
+        {
+          "id": "q6_opt3",
+          "label": "I often say no unless it directly affects me.",
+          "signals": { "radius_self": 1 },
+          "next": "q7"
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "type": "question",
+      "text": "When deciding whether to share credit, which thought is strongest?",
+      "options": [
+        {
+          "id": "q7_opt1",
+          "label": "Shared credit builds trust and connection.",
+          "signals": { "orientation_contribution": 1, "radius_altro": 1 },
+          "next": "q8"
+        },
+        {
+          "id": "q7_opt2",
+          "label": "My role should be visible so my work is recognized.",
+          "signals": { "orientation_entitlement": 1, "radius_self": 1 },
+          "next": "q8"
+        },
+        {
+          "id": "q7_opt3",
+          "label": "I share credit when it feels fair to everyone involved.",
+          "signals": { "orientation_contribution": 1, "radius_balanced": 1 },
+          "next": "q8"
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "type": "question",
+      "text": "If a problem affects only your team, what do you focus on first?",
+      "options": [
+        {
+          "id": "q8_opt1",
+          "label": "How this team can support the broader organization.",
+          "signals": { "radius_altro": 1 },
+          "next": "q9"
+        },
+        {
+          "id": "q8_opt2",
+          "label": "How this team should protect its own success.",
+          "signals": { "radius_self": 1 },
+          "next": "q9"
+        },
+        {
+          "id": "q8_opt3",
+          "label": "How to balance team success with broader impact.",
+          "signals": { "radius_balanced": 1 },
+          "next": "q9"
+        }
+      ]
+    },
+    {
+      "id": "q9",
+      "type": "question",
+      "text": "When someone else’s issue feels urgent, what do you notice first?",
+      "options": [
+        {
+          "id": "q9_opt1",
+          "label": "Whether I can help without losing my own momentum.",
+          "signals": { "radius_balanced": 1, "locus_internal": 1 },
+          "next": "decision_radius"
+        },
+        {
+          "id": "q9_opt2",
+          "label": "Whether it is really my responsibility to intervene.",
+          "signals": { "radius_self": 1 },
+          "next": "decision_radius"
+        },
+        {
+          "id": "q9_opt3",
+          "label": "Whether stepping in will strengthen the shared outcome.",
+          "signals": { "radius_altro": 1, "orientation_contribution": 1 },
+          "next": "decision_radius"
+        }
+      ]
+    },
+    {
+      "id": "decision_radius",
+      "type": "decision",
+      "routes": [
+        {
+          "condition": {
+            "signalCondition": {
+              "signal": "radius_altro",
+              "operator": ">=",
+              "value": 2
+            }
+          },
+          "next": "q10_altro"
+        },
+        {
+          "condition": {
+            "signalCondition": {
+              "signal": "radius_self",
+              "operator": ">=",
+              "value": 2
+            }
+          },
+          "next": "q10_self"
+        },
+        {
+          "next": "q10_balanced"
+        }
+      ]
+    },
+    {
+      "id": "q10_altro",
+      "type": "question",
+      "text": "As you reflect on these patterns, which statement feels most aligned with your concern for others?",
+      "options": [
+        {
+          "id": "q10_altro_opt1",
+          "label": "I’m trying to learn from what I can control and how I contribute.",
+          "signals": { "locus_internal": 1, "orientation_contribution": 1, "radius_altro": 1 },
+          "next": "q11"
+        },
+        {
+          "id": "q10_altro_opt2",
+          "label": "I’m often waiting for the right conditions before I move.",
+          "signals": { "locus_external": 1, "orientation_entitlement": 1, "radius_self": 1 },
+          "next": "q11"
+        },
+        {
+          "id": "q10_altro_opt3",
+          "label": "I hold both responsibility and limits in view.",
+          "signals": { "locus_neutral": 1, "orientation_neutral": 1, "radius_balanced": 1 },
+          "next": "q11"
+        }
+      ]
+    },
+    {
+      "id": "q10_self",
+      "type": "question",
+      "text": "As you reflect, which statement feels most aligned with how you protect your own boundaries?",
+      "options": [
+        {
+          "id": "q10_self_opt1",
+          "label": "I’m trying to learn from what I can control and how I contribute.",
+          "signals": { "locus_internal": 1, "orientation_contribution": 1, "radius_altro": 1 },
+          "next": "q11"
+        },
+        {
+          "id": "q10_self_opt2",
+          "label": "I’m often waiting for the right conditions before I move.",
+          "signals": { "locus_external": 1, "orientation_entitlement": 1, "radius_self": 1 },
+          "next": "q11"
+        },
+        {
+          "id": "q10_self_opt3",
+          "label": "I hold both responsibility and limits in view.",
+          "signals": { "locus_neutral": 1, "orientation_neutral": 1, "radius_balanced": 1 },
+          "next": "q11"
+        }
+      ]
+    },
+    {
+      "id": "q10_balanced",
+      "type": "question",
+      "text": "As you reflect, which statement feels most aligned with your overall posture?",
+      "options": [
+        {
+          "id": "q10_balanced_opt1",
+          "label": "I’m trying to learn from what I can control and how I contribute.",
+          "signals": { "locus_internal": 1, "orientation_contribution": 1, "radius_altro": 1 },
+          "next": "q11"
+        },
+        {
+          "id": "q10_balanced_opt2",
+          "label": "I’m often waiting for the right conditions before I move.",
+          "signals": { "locus_external": 1, "orientation_entitlement": 1, "radius_self": 1 },
+          "next": "q11"
+        },
+        {
+          "id": "q10_balanced_opt3",
+          "label": "I hold both responsibility and limits in view.",
+          "signals": { "locus_neutral": 1, "orientation_neutral": 1, "radius_balanced": 1 },
+          "next": "q11"
+        }
+      ]
+    },
+    {
+      "id": "q11",
+      "type": "question",
+      "text": "What feels most useful for your next step after this reflection?",
+      "options": [
+        {
+          "id": "q11_opt1",
+          "label": "Notice where I can act with intention, even in uncertainty.",
+          "signals": { "locus_internal": 1 },
+          "next": "decision_profile"
+        },
+        {
+          "id": "q11_opt2",
+          "label": "Notice where I might expect others to fix things first.",
+          "signals": { "locus_external": 1 },
+          "next": "decision_profile"
+        },
+        {
+          "id": "q11_opt3",
+          "label": "Notice when I’m balancing my needs with others'.",
+          "signals": { "radius_balanced": 1 },
+          "next": "decision_profile"
+        }
+      ]
+    },
+    {
+      "id": "decision_profile",
+      "type": "decision",
+      "routes": [
+        {
+          "condition": {
+            "all": [
+              { "signalCondition": { "signal": "locus_internal", "operator": ">=", "value": 3 } },
+              { "signalCondition": { "signal": "orientation_contribution", "operator": ">=", "value": 3 } },
+              { "signalCondition": { "signal": "radius_altro", "operator": ">=", "value": 3 } }
+            ]
+          },
+          "next": "reflection_victor_contribution_altro"
+        },
+        {
+          "condition": {
+            "all": [
+              { "signalCondition": { "signal": "locus_internal", "operator": ">=", "value": 3 } },
+              { "signalCondition": { "signal": "orientation_contribution", "operator": ">=", "value": 3 } },
+              { "signalCondition": { "signal": "radius_self", "operator": ">=", "value": 2 } }
+            ]
+          },
+          "next": "reflection_victor_contribution_self"
+        },
+        {
+          "condition": {
+            "all": [
+              { "signalCondition": { "signal": "locus_external", "operator": ">=", "value": 3 } },
+              { "signalCondition": { "signal": "orientation_entitlement", "operator": ">=", "value": 3 } },
+              { "signalCondition": { "signal": "radius_self", "operator": ">=", "value": 2 } }
+            ]
+          },
+          "next": "reflection_victim_entitlement_self"
+        },
+        {
+          "condition": {
+            "all": [
+              { "signalCondition": { "signal": "locus_external", "operator": ">=", "value": 3 } },
+              { "signalCondition": { "signal": "orientation_entitlement", "operator": ">=", "value": 3 } },
+              { "signalCondition": { "signal": "radius_altro", "operator": ">=", "value": 2 } }
+            ]
+          },
+          "next": "reflection_victim_entitlement_altro"
+        },
+        {
+          "next": "reflection_balanced"
+        }
+      ]
+    },
+    {
+      "id": "reflection_victor_contribution_altro",
+      "type": "reflection",
+      "text": "You chose “{q1.answer}”, “{q3.answer}”, and “{q8.answer}”. That pattern reflects an internal agency, a contribution mindset, and a broader concern for others.",
+      "next": "summary"
+    },
+    {
+      "id": "reflection_victor_contribution_self",
+      "type": "reflection",
+      "text": "You chose “{q1.answer}”, “{q3.answer}”, and “{q6.answer}”. This suggests internal agency combined with contribution, even when you stay mindful of your own boundaries.",
+      "next": "summary"
+    },
+    {
+      "id": "reflection_victim_entitlement_self",
+      "type": "reflection",
+      "text": "You chose “{q2.answer}”, “{q4.answer}”, and “{q9.answer}”. These responses point to feeling shaped by external conditions, entitlement, and a self-first radius.",
+      "next": "summary"
+    },
+    {
+      "id": "reflection_victim_entitlement_altro",
+      "type": "reflection",
+      "text": "You chose “{q2.answer}”, “{q5.answer}”, and “{q9.answer}”. This shows external orientation and entitlement while still sensing others’ needs, which can be valuable to explore.",
+      "next": "summary"
+    },
+    {
+      "id": "reflection_balanced",
+      "type": "reflection",
+      "text": "Your path shows a blend of internal and external perspectives, contribution and entitlement cues, and both self-care and other-care considerations.",
+      "next": "summary"
+    },
+    {
+      "id": "summary",
+      "type": "summary",
+      "text": "This session asked how you handle control, value, and concern. Your answers like “{q1.answer}” and “{q10.answer}” reveal the pattern that matters most as you move forward.",
+      "next": "end"
+    },
+    {
+      "id": "end",
+      "type": "end",
+      "text": "Thank you for completing the reflection. Use these signals as anchors for your next conversation."
+    }
+  ]
+}

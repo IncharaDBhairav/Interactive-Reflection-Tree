@@ -1,6 +1,6 @@
 # Reflection Tree Web App
 
-A deterministic, static JSON-driven reflection tree rendered with React + Tailwind.
+Interactive employee reflection tree built with React. Uses a JSON-driven state machine to safely explore Locus of Control and Contribution.
 
 ## What this delivers
 - `package.json`, `vite.config.ts`, `tailwind.config.js`: frontend scaffolding for a React + Vite + Tailwind app.
